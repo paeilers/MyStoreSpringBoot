@@ -72,7 +72,7 @@ public class SalesOrderResource {
 	}
 
 
-	@RequestMapping(value="salesOrders/new", method=RequestMethod.POST)
+	@RequestMapping(value="salesOrders", method=RequestMethod.POST)
 	public SalesOrder submitSalesOrder(@RequestBody String jsonSalesOrder) {
 				
 		Gson gsonSalesOrder = new Gson();

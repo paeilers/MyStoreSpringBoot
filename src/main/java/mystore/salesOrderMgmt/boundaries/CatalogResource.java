@@ -35,7 +35,7 @@ public class CatalogResource {
 		return retrievedCatalog;
 	}
 
-	@RequestMapping(value="/productCategories/{catalogUid}", method=RequestMethod.GET)
+	@RequestMapping(value="/catalog/{catalogUid}/productCategories", method=RequestMethod.GET)
 	public List<ProductCategory> getCatalogProductCategories(@PathVariable("catalogUid") Integer catalogUid, 
 																			@RequestParam(value="callback", required=false) String callback) {
 		List<ProductCategory> productCategories = null;
@@ -59,7 +59,7 @@ public class CatalogResource {
 		return productCategories;
 	}
 	
-	@RequestMapping(value="/productCategoryItems/{categoryUid}", method=RequestMethod.GET)
+	@RequestMapping(value="productCategories/{categoryUid}/productCategoryItems", method=RequestMethod.GET)
 	public List<ProductCategoryItem> getProductCategoryItems(@PathVariable("categoryUid") Integer categoryUid, @RequestParam(value="callback", required=false) String callback) {
 		List<ProductCategoryItem> productCategoryItems = catalogService.retrieveAllProductCategoryItems(categoryUid);
 		if (productCategoryItems != null) {
