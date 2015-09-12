@@ -38,6 +38,7 @@ public class CatalogItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private int catalogItemUid;
+	private int catalogUid;
 	private int itemUid;
 	private BigDecimal itemPrice;
 	private Catalog catalog;
@@ -61,8 +62,17 @@ public class CatalogItem implements Serializable {
 	public void setCatalogItemUid(int catItemUid) {
 		this.catalogItemUid = catItemUid;
 	}
+
+	@Column
+	public int getCatalogUid() {
+		return this.catalogUid;
+	}
 	
-	@Column(name="ITEM_UID")
+	public void setCatalogUid(int catalogUid) {
+		this.catalogUid = catalogUid;
+	}
+	
+	@Column
 	public int getItemUid() {
 		return this.itemUid;
 	}
@@ -81,9 +91,8 @@ public class CatalogItem implements Serializable {
 	}
 
 	@ManyToOne(targetEntity=Catalog.class, fetch=FetchType.EAGER)
-	@JoinColumn(name="CATALOG_UID", insertable=false, updatable=false)
+	@JoinColumn(name="catalogUid", insertable=false, updatable=false)
 	@JsonBackReference
-	@JsonIgnore
 	public Catalog getCatalog() {
 		return this.catalog;
 	}
@@ -93,7 +102,7 @@ public class CatalogItem implements Serializable {
 	}
 
 	@ManyToOne(targetEntity=Item.class, fetch=FetchType.EAGER)
-	@JoinColumn(name="ITEM_UID", insertable=false, updatable=false)
+	@JoinColumn(name="itemUid", insertable=false, updatable=false)
 	@JsonManagedReference
 	public Item getItem() {
 		return this.item;

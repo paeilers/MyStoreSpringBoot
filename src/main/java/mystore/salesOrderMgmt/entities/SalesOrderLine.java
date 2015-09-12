@@ -38,6 +38,7 @@ public class SalesOrderLine implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private int salesOrderLineUid;
+	private int salesOrderUid;
 	private SalesOrder salesOrder;
 	private int catalogItemUid;
 	private CatalogItem catalogItem;
@@ -50,6 +51,7 @@ public class SalesOrderLine implements Serializable {
 	}
 	
 	public SalesOrderLine(SalesOrder salesOrder, CatalogItem catalogItem, int itemQuantity) {
+		this.catalogItemUid = catalogItem.getCatalogItemUid();
 		this.salesOrder = salesOrder;
 		this.catalogItem = catalogItem;
 		this.itemQuantity = itemQuantity;
@@ -94,10 +96,18 @@ public class SalesOrderLine implements Serializable {
 		this.itemPrice = itemPrice;
 	}
 	
+	@Column(nullable=false, insertable=false, updatable=false)
+	public int getSalesOrderUid() {
+		return this.salesOrderUid;
+	}
+	
+	public void setSalesOrderUid(int salesOrderUid) {
+		this.salesOrderUid = salesOrderUid;
+	}
+	
 	@ManyToOne(targetEntity=SalesOrder.class)
-	@JoinColumn(name="SALES_ORDER_UID")
+	@JoinColumn(name="salesOrderUid")
 	@JsonBackReference
-	@JsonIgnore
 	public SalesOrder getSalesOrder() {
 		return this.salesOrder;
 	}
@@ -106,6 +116,7 @@ public class SalesOrderLine implements Serializable {
 		this.salesOrder = salesOrder;
 	}
 
+	@Column(nullable=false)
 	public int getCatalogItemUid() {
 		return this.catalogItemUid;
 	}
@@ -124,7 +135,7 @@ public class SalesOrderLine implements Serializable {
 		this.catalogItem = catalogItem;
 	}
 	
-	@ManyToOne(targetEntity=Shipment.class)
+	@ManyToOne(targetEntity=Shipment.class, optional = true)
 	@JoinColumn(name="SHIPMENT_UID")
 	public Shipment getShipment() {
 		return this.shipment;

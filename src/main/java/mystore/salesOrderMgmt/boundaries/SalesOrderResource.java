@@ -84,11 +84,13 @@ public class SalesOrderResource {
 		List<SalesOrderLine> newLineItems = new ArrayList<SalesOrderLine>();
 		for (int i = 0; i < salesOrderLineItems.size(); i++) {
 			CatalogItem catalogItem = catalogService.retrieveCatalogItem(salesOrderLineItems.get(i).getCatalogItemUid());
+System.out.println("PROVIDED lineItem.catalogItemUid is: " + salesOrderLineItems.get(i).getCatalogItemUid());
 			SalesOrderLine lineItem = new SalesOrderLine(salesOrder, catalogItem, salesOrderLineItems.get(i).getItemQuantity());
+System.out.println("NEW lineItem.catalogItemUid is: " + lineItem.getCatalogItemUid());
 			newLineItems.add(lineItem);
 		}
 		salesOrder.setLineItems(newLineItems);
-						
+		
 		SalesOrder persistedSalesOrder = null;
 		try {
 			persistedSalesOrder = salesOrderService.createSalesOrder(salesOrder);

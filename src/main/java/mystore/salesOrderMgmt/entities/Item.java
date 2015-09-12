@@ -79,7 +79,6 @@ public class Item implements Serializable {
 		this.productName = productName;
 	}
 
-	//bi-directional many-to-one association to CatalogItem
 	@OneToMany(targetEntity=CatalogItem.class, cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="item")
 	@JsonBackReference
 	public List<CatalogItem> getCatalogItems() {

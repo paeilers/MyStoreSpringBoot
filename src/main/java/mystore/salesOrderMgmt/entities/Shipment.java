@@ -111,6 +111,8 @@ public class Shipment implements Serializable {
 		this.shipperTrackingNumber = shipperTrackingNumber;
 	}
 
+	@ManyToOne(targetEntity=SalesInvoice.class, optional = true)
+	@JoinColumn(name="SALES_INVOICE_UID")
 	public SalesInvoice getSalesInvoice() {
 		return this.salesInvoice;
 	}
