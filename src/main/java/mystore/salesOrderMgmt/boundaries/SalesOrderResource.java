@@ -52,11 +52,9 @@ public class SalesOrderResource {
 	public SalesOrder calcualteSalesOrder(@RequestParam("salesOrder") String jsonSalesOrder) {
 
 		Gson gsonSalesOrder = new Gson();
-		SalesOrder salesOrder = gsonSalesOrder.fromJson(jsonSalesOrder, SalesOrder.class);
-		
+		SalesOrder salesOrder = gsonSalesOrder.fromJson(jsonSalesOrder, SalesOrder.class);		
 		SalesOrder calculatedSalesOrder = null;
-		calculatedSalesOrder = salesOrderService.calculateSalesOrder(salesOrder);
-	
+		calculatedSalesOrder = salesOrderService.calculateSalesOrder(salesOrder);	
 		return calculatedSalesOrder;
 	}
 
@@ -76,21 +74,7 @@ public class SalesOrderResource {
 	public SalesOrder submitSalesOrder(@RequestBody String jsonSalesOrder) {
 				
 		Gson gsonSalesOrder = new Gson();
-		SalesOrder salesOrder = gsonSalesOrder.fromJson(jsonSalesOrder, SalesOrder.class);
-		
-		// Go through the line items and create a new array of line items by assigning the catalogItem directly
-		// This is required else the many-to-one relationship between SalesOrderLine and CatalogItem does not get carried through
-		List<SalesOrderLine> salesOrderLineItems = salesOrder.getLineItems();
-		List<SalesOrderLine> newLineItems = new ArrayList<SalesOrderLine>();
-		for (int i = 0; i < salesOrderLineItems.size(); i++) {
-			CatalogItem catalogItem = catalogService.retrieveCatalogItem(salesOrderLineItems.get(i).getCatalogItemUid());
-System.out.println("PROVIDED lineItem.catalogItemUid is: " + salesOrderLineItems.get(i).getCatalogItemUid());
-			SalesOrderLine lineItem = new SalesOrderLine(salesOrder, catalogItem, salesOrderLineItems.get(i).getItemQuantity());
-System.out.println("NEW lineItem.catalogItemUid is: " + lineItem.getCatalogItemUid());
-			newLineItems.add(lineItem);
-		}
-		salesOrder.setLineItems(newLineItems);
-		
+		SalesOrder salesOrder = gsonSalesOrder.fromJson(jsonSalesOrder, SalesOrder.class);		
 		SalesOrder persistedSalesOrder = null;
 		try {
 			persistedSalesOrder = salesOrderService.createSalesOrder(salesOrder);

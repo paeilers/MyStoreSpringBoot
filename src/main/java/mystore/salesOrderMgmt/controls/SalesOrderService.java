@@ -4,9 +4,9 @@ package mystore.salesOrderMgmt.controls;
 /* This boundary service should expose course grained methods to the client */
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -40,19 +40,27 @@ public class SalesOrderService implements Serializable {
 	@Autowired
 	DiscountCalculator discountCalculator;
 	
+	@Autowired
+	CatalogService catalogService;
+	
 	@Transactional
 	public SalesOrder createSalesOrder(SalesOrder salesOrder) throws Exception {
+				
 		salesOrder.setOrderNumber(generateOrderNumber(salesOrder));
 		salesOrder.setSalesOrderStatus("NEW");
 		salesOrder.setSalesOrderDate(new Date());
-
-		List<SalesOrderLine> lineItems = salesOrder.getLineItems();
-		if (lineItems != null) {
-			for (int i=0; i < lineItems.size(); i++) {
-				lineItems.get(i).calculateLineItem();
-			}
-		}	
-
+		
+		// Go through the line items and create a new array of line items by assigning the catalogItem directly
+		// This is required else the many-to-one relationship between SalesOrderLine and CatalogItem does not get carried through
+		List<SalesOrderLine> salesOrderLineItems = salesOrder.getLineItems();
+		List<SalesOrderLine> newLineItems = new ArrayList<SalesOrderLine>();
+		for (int i = 0; i < salesOrderLineItems.size(); i++) {
+			CatalogItem catalogItem = catalogService.retrieveCatalogItem(salesOrderLineItems.get(i).getCatalogItemUid());
+			SalesOrderLine lineItem = new SalesOrderLine(salesOrder, catalogItem, salesOrderLineItems.get(i).getItemQuantity());
+			lineItem.calculateLineItem();
+			newLineItems.add(lineItem);
+		}
+		salesOrder.setLineItems(newLineItems);				
 		calculateSalesOrder(salesOrder);
 
 		emgr.persist(salesOrder);
