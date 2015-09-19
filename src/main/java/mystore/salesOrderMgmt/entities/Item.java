@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -36,15 +37,19 @@ public class Item implements Serializable {
 	private String productName;	
 	private List<CatalogItem> catalogItems;
 	private List<ProductCategoryItem> productCategoryItems;
+	private List<Catalog> catalogs;
 
+	// Initializer block
+	{
+		catalogItems = new ArrayList<CatalogItem>();
+		productCategoryItems = new ArrayList<ProductCategoryItem>();
+		catalogs = new ArrayList<Catalog>();
+	}
+	
 	public Item() {
-		this.catalogItems = new ArrayList<CatalogItem>();
-		this.productCategoryItems = new ArrayList<ProductCategoryItem>();
 	}
 
 	public Item(String productName, String productDescription) {
-		this.catalogItems = new ArrayList<CatalogItem>();
-		this.productCategoryItems = new ArrayList<ProductCategoryItem>();
 		this.productName = productName;
 		this.productDescription = productDescription;
 	}
@@ -98,5 +103,21 @@ public class Item implements Serializable {
 	public void setProductCategoryItems(List<ProductCategoryItem> productCategoryItems) {
 		this.productCategoryItems = productCategoryItems;
 	}
+
+	/**
+	 * @return the catalogs
+	 */
+	@ManyToMany(mappedBy="items", targetEntity=Catalog.class, fetch=FetchType.LAZY)
+	public List<Catalog> getCatalogs() {
+		return catalogs;
+	}
+
+	/**
+	 * @param catalogs the catalogs to set
+	 */
+	public void setCatalogs(List<Catalog> catalogs) {
+		this.catalogs = catalogs;
+	}
+
 	
 }

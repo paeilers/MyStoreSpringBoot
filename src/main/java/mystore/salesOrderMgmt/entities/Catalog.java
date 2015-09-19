@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -37,10 +38,16 @@ public class Catalog implements Serializable {
 	private int catalogUid;
 	private Date validFrom;
 	private Date validThrough;
-	private List<CatalogItem> catalogItems;
+	private List<CatalogItem> catalogItems = new ArrayList<CatalogItem>();
+	private List<Item> items = new ArrayList<Item>();
 
-	public Catalog() {
+	// Initializer block
+	{
 		catalogItems = new ArrayList<CatalogItem>();
+		items = new ArrayList<Item>();		
+	}
+	
+	public Catalog() {
 	}
 
 	@Id
@@ -83,6 +90,20 @@ public class Catalog implements Serializable {
 	public void setCatalogItems(List<CatalogItem> catalogItems) {
 		this.catalogItems = catalogItems;
 	}
-	
 
+	/**
+	 * @return the items
+	 */
+	@ManyToMany(targetEntity=Item.class, fetch=FetchType.LAZY)
+	public List<Item> getItems() {
+		return items;
+	}
+
+	/**
+	 * @param items the items to set
+	 */
+	public void setItems(List<Item> items) {
+		this.items = items;
+	}
+	
 }

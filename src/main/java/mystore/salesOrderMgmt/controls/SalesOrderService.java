@@ -4,19 +4,20 @@ package mystore.salesOrderMgmt.controls;
 /* This boundary service should expose course grained methods to the client */
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
 import mystore.salesOrderMgmt.entities.SalesOrderLine;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,8 @@ public class SalesOrderService implements Serializable {
 
 	@PersistenceContext
 	EntityManager emgr;
+	
+	Session hibernateSession;
 		
 	// Inject other EJB services here as required to support complex transactions
 	@Autowired
@@ -40,19 +43,26 @@ public class SalesOrderService implements Serializable {
 	@Autowired
 	DiscountCalculator discountCalculator;
 	
+	@Autowired
+	CatalogService catalogService;
+	
 	@Transactional
 	public SalesOrder createSalesOrder(SalesOrder salesOrder) throws Exception {
+				
 		salesOrder.setOrderNumber(generateOrderNumber(salesOrder));
 		salesOrder.setSalesOrderStatus("NEW");
 		salesOrder.setSalesOrderDate(new Date());
-
-		List<SalesOrderLine> lineItems = salesOrder.getLineItems();
-		if (lineItems != null) {
-			for (int i=0; i < lineItems.size(); i++) {
-				lineItems.get(i).calculateLineItem();
-			}
-		}	
-
+		
+		// Go through the line items and create a new array of line items by assigning the catalogItem directly
+		// This is required else the many-to-one relationship between SalesOrderLine and CatalogItem does not get carried through
+		List<SalesOrderLine> salesOrderLineItems = salesOrder.getLineItems();
+		List<SalesOrderLine> newLineItems = new ArrayList<SalesOrderLine>();
+		for (int i = 0; i < salesOrderLineItems.size(); i++) {
+			CatalogItem catalogItem = catalogService.retrieveCatalogItem(salesOrderLineItems.get(i).getCatalogItemUid());
+			SalesOrderLine lineItem = new SalesOrderLine(salesOrder, catalogItem, salesOrderLineItems.get(i).getItemQuantity());
+			newLineItems.add(lineItem);
+		}
+		salesOrder.setLineItems(newLineItems);				
 		calculateSalesOrder(salesOrder);
 
 		emgr.persist(salesOrder);
@@ -63,20 +73,17 @@ public class SalesOrderService implements Serializable {
 	@Transactional
 	public SalesOrder addLineItem(SalesOrder salesOrder, SalesOrderLine lineItem) {
 		lineItem.setSalesOrder(salesOrder);
-		calculateLineItem(lineItem);
+		lineItem.calculateLineItem();
 		emgr.persist(lineItem);
 		salesOrder.getLineItems().add(lineItem);
+		calculateSalesOrder(salesOrder);
 		emgr.flush();
 		return salesOrder;
 	}
 
 	@Transactional
-	public SalesOrder addLineItem(SalesOrder salesOrder, CatalogItem catItem, int itemQuantity) throws Exception {
-		SalesOrderLine lineItem = new SalesOrderLine();
-		lineItem.setSalesOrder(salesOrder);
-		lineItem.setCatalogItem(catItem);
-		lineItem.setItemQuantity(itemQuantity);
-		calculateLineItem(lineItem);
+	public SalesOrder addLineItem(SalesOrder salesOrder, CatalogItem catItem, int itemQuantity) {
+		SalesOrderLine lineItem = new SalesOrderLine(salesOrder, catItem, itemQuantity);
 		emgr.persist(lineItem);   
 		salesOrder.getLineItems().add(lineItem);
 		calculateSalesOrder(salesOrder);
@@ -84,55 +91,47 @@ public class SalesOrderService implements Serializable {
 		return salesOrder;
 	}
 
+	@Transactional
 	public SalesOrder retrieveSalesOrder(Integer orderUid) {
-		Query salesOrderQuery = emgr.createQuery("Select so from SalesOrder so where so.salesOrderUid = :orderUid");
-		salesOrderQuery.setParameter("orderUid", orderUid);
-		SalesOrder salesOrder = null;
-		try {
-			salesOrder = (SalesOrder) salesOrderQuery.getSingleResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// JPA compliant retrieval replaced by Hibernate HQL
+//		SalesOrder salesOrder = (SalesOrder) emgr.createQuery("Select so from SalesOrder so where so.salesOrderUid = :orderUid")
+//												.setParameter("orderUid", orderUid)
+//												.getSingleResult();
+
+		// Want to use HQL so need a Hibernate session
+		this.hibernateSession = emgr.unwrap(Session.class);
+		// Do some things requiring either the Hibernate session or both the session and the JPA Entity Manager
+		Query query = hibernateSession.createQuery("from SalesOrder where salesOrderUid = :salesOrderUid");
+		query.setParameter("salesOrderUid", orderUid);
+		SalesOrder salesOrder = (SalesOrder) query.uniqueResult();
 
 		return salesOrder;
 	}	
 
 	@Transactional
 	public SalesOrder removeSalesOrderLine(SalesOrder salesOrder, SalesOrderLine salesOrderLine) throws Exception {
-		
-		SalesOrder managedSalesOrder;
-		SalesOrderLine managedSalesOrderLine;
-		
-		managedSalesOrder = emgr.find(SalesOrder.class, (Integer) salesOrder.getSalesOrderUid(), LockModeType.PESSIMISTIC_WRITE);		
-		managedSalesOrderLine = emgr.find(SalesOrderLine.class, (Integer) salesOrderLine.getSalesOrderLineUid(), LockModeType.PESSIMISTIC_WRITE);
-		List<SalesOrderLine> lineItems = managedSalesOrder.getLineItems();
-		if (lineItems.contains(managedSalesOrderLine)) {
-			managedSalesOrder.getLineItems().remove(managedSalesOrderLine);
+
+		salesOrder = emgr.find(SalesOrder.class, (Integer) salesOrder.getSalesOrderUid(), LockModeType.PESSIMISTIC_WRITE);		
+		salesOrderLine = emgr.find(SalesOrderLine.class, (Integer) salesOrderLine.getSalesOrderLineUid(), LockModeType.PESSIMISTIC_WRITE);
+
+		List<SalesOrderLine> lineItems = salesOrder.getLineItems();
+		if (lineItems.contains(salesOrderLine)) {
+			salesOrder.getLineItems().remove(salesOrderLine);
 		} else {
 			throw new Exception("ERROR: The line item provided to SalesOrderService.removeSalesOrderLine was not associated with the sales order provided");
 		}		
-		calculateSalesOrder(managedSalesOrder);
-		emgr.merge(managedSalesOrder);
-		salesOrder = managedSalesOrder;
-		emgr.flush();
+		calculateSalesOrder(salesOrder);
+		emgr.merge(salesOrder);
+		
 		return salesOrder;
-	}
-	
-	public SalesOrderLine retrieveSalesOrderLine(Integer salesOrderLineUid) {
-		Query salesOrderLineQuery = emgr.createQuery("");
-		salesOrderLineQuery.setParameter("salesOrderLineUid", salesOrderLineUid);
-		SalesOrderLine salesOrderLine = null;
-		salesOrderLine = (SalesOrderLine) salesOrderLineQuery.getSingleResult();
-		return salesOrderLine;
 	}
 	
 	@Transactional
 	public SalesOrder cancelSalesOrder(SalesOrder salesOrder) {
 		// Update salesOrderStatus to "Cancelled" and send email to customer with confirmation of cancellation
-		SalesOrder managedSalesOrder = emgr.find(SalesOrder.class, salesOrder.getSalesOrderUid(), LockModeType.PESSIMISTIC_WRITE);
-		managedSalesOrder.setSalesOrderStatus("Cancelled");
-		emgr.merge(managedSalesOrder);
-		salesOrder = managedSalesOrder;
+		salesOrder = emgr.find(SalesOrder.class, salesOrder.getSalesOrderUid(), LockModeType.PESSIMISTIC_WRITE);
+		salesOrder.setSalesOrderStatus("Cancelled");
+		emgr.merge(salesOrder);
 		// Send email via the email service (TBD)
 		return salesOrder;
 	}
@@ -140,12 +139,6 @@ public class SalesOrderService implements Serializable {
 	private String generateOrderNumber(SalesOrder salesOrder) {
 		// Simplified for prototyping purposes
 		return String.valueOf(new Date().getTime());
-	}
-	
-	public SalesOrderLine calculateLineItem(SalesOrderLine lineItem) {
-		lineItem.setItemPrice(lineItem.getCatalogItem().getItemPrice());
-		lineItem.setExtendedPrice(lineItem.getItemPrice().multiply(new BigDecimal(lineItem.getItemQuantity())));
-		return lineItem;
 	}
 	
 	public SalesOrder calculateSalesOrder(SalesOrder salesOrder) {

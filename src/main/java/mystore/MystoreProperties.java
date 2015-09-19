@@ -17,7 +17,7 @@ public class MystoreProperties {
 	/**
 	 * Version number for the release
 	 */
-	private String release = "0.1";
+	private String release = "";
 	
 	public String getRelease() {
 		return release;

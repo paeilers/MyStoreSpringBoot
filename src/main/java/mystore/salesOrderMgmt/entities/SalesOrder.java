@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +37,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * The persistent class for the sales_order database table.
  * 
  */
-@Entity
+@Entity()
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Table(name="sales_order")
@@ -74,18 +74,23 @@ public class SalesOrder implements Serializable {
 	private String promoCode;
 	private Timestamp lastUpdatedTime;
 	
-	//Calculated and persisted for data retrieval performance
-	private BigDecimal subTotal = BigDecimal.ZERO;
-	private BigDecimal discount = BigDecimal.ZERO;
-	private BigDecimal salesTax = BigDecimal.ZERO;
-	private BigDecimal shipping = BigDecimal.ZERO;
-	private BigDecimal total = BigDecimal.ZERO;
+	//Calculated and persisted for auditing and data retrieval performance
+	private BigDecimal subTotal;
+	private BigDecimal discount;
+	private BigDecimal salesTax;
+	private BigDecimal shipping;
+	private BigDecimal total;
 
-	private UserAccount userAccount;
-	private List<SalesOrderLine> lineItems;
+	private UserAccount userAccount; // Optional
+	private List<SalesOrderLine> lineItems;  // Required
 
+	// Initialization block
+	// userAccount is lazy instantiated
+	{ 
+		lineItems = new ArrayList<SalesOrderLine>();	
+	}
+	
 	public SalesOrder() {
-		lineItems = new ArrayList<SalesOrderLine>();
 	}
 	
 	@Override

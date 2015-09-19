@@ -116,7 +116,7 @@ public class SalesOrderLine implements Serializable {
 		this.salesOrder = salesOrder;
 	}
 
-	@Column(nullable=false)
+	@Column(name="CATALOG_ITEM_UID", nullable=false)
 	public int getCatalogItemUid() {
 		return this.catalogItemUid;
 	}
@@ -125,8 +125,8 @@ public class SalesOrderLine implements Serializable {
 		this.catalogItemUid = catalogItemUid;
 	}
 	
-	@ManyToOne(targetEntity=CatalogItem.class, fetch=FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name="catalogItemUid", nullable=false, insertable=false, updatable=false)
+	@ManyToOne(targetEntity=CatalogItem.class, fetch=FetchType.EAGER)
+	@JoinColumn(name="CATALOG_ITEM_UID", nullable=false, insertable=false, updatable=false)
 	public CatalogItem getCatalogItem() {
 		return this.catalogItem;
 	}

@@ -92,13 +92,8 @@ public class SalesOrderServiceTest extends AbstractTestNGSpringContextTests {
 
 		// Associate the first line item with the new sales order
 		CatalogItem catItem = catalogService.retrieveCatalogItem(2);
-		salesOrderLine = new SalesOrderLine();
-		salesOrderLine.setCatalogItem(catItem);
-		salesOrderLine.setItemQuantity(20);
-		salesOrderLine.setSalesOrder(salesOrder);
-		
-		salesOrder.getLineItems().add(salesOrderLine);
-				
+		salesOrderLine = new SalesOrderLine(salesOrder, catItem, 20);		
+		salesOrder.getLineItems().add(salesOrderLine);				
 		salesOrderService.createSalesOrder(salesOrder);			
 				
 		assertNotNull(salesOrder.getOrderNumber());
@@ -117,9 +112,10 @@ public class SalesOrderServiceTest extends AbstractTestNGSpringContextTests {
 		// Assumes pre-existence of a SalesOrder
 		// The service method should take a SalesOrder object as input as well as a CatalogItem and Quantity
 		// Set line item details
-		CatalogItem catItem = catalogService.retrieveCatalogItem(1);		
+		CatalogItem catItem = catalogService.retrieveCatalogItem(1);
+		salesOrderLine = new SalesOrderLine(salesOrder, catItem, 10);
 		// Associate new lineItem with salesOrder
-		salesOrderService.addLineItem(this.salesOrder, catItem, 10);
+		salesOrderService.addLineItem(this.salesOrder, salesOrderLine);
 		AssertJUnit.assertNotSame(salesOrder.getLineItems().size(), initialNumberOfLines);	
 		}
 
