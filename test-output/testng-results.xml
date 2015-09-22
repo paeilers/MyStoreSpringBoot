@@ -2,24 +2,24 @@
 <testng-results skipped="0" failed="0" total="7" passed="7">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="7168" started-at="2015-09-10T17:22:34Z" finished-at="2015-09-10T17:22:41Z">
+  <suite name="Default suite" duration-ms="6818" started-at="2015-09-22T15:44:29Z" finished-at="2015-09-22T15:44:36Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="7168" started-at="2015-09-10T17:22:34Z" finished-at="2015-09-10T17:22:41Z">
+    <test name="Default test" duration-ms="6818" started-at="2015-09-22T15:44:29Z" finished-at="2015-09-22T15:44:36Z">
       <class name="mystore.SalesOrderServiceTest">
-        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:34Z" finished-at="2015-09-10T11:22:34Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestClass()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestClass" is-config="true" duration-ms="16" started-at="2015-09-22T09:44:29Z" finished-at="2015-09-22T09:44:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestClass -->
-        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="6463" started-at="2015-09-10T11:22:34Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextPrepareTestInstance()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextPrepareTestInstance" is-config="true" duration-ms="6207" started-at="2015-09-22T09:44:29Z" depends-on-methods="org.springframework.test.context.testng.AbstractTestNGSpringContextTests.springTestContextBeforeTestClass" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextPrepareTestInstance -->
-        <test-method status="PASS" signature="getSalesOrderService()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="getSalesOrderService" duration-ms="10" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="getSalesOrderService()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="getSalesOrderService" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- getSalesOrderService -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -30,44 +30,44 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="3" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.getSalesOrderService()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="3" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.testCreateSalesOrder() throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testCreateSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="testCreateSalesOrder" duration-ms="350" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="testCreateSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="testCreateSalesOrder" duration-ms="344" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCreateSalesOrder -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.getCatalogService()]]>
+                <![CDATA[public void mystore.SalesOrderServiceTest.testCreateSalesOrder() throws java.lang.Exception]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void mystore.SalesOrderServiceTest.getSalesOrderService()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void mystore.SalesOrderServiceTest.cancelSalesOrder()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -78,15 +78,26 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="getCatalogService()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="getCatalogService" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- getCatalogService -->
-        <test-method status="PASS" signature="cancelSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="cancelSalesOrder" duration-ms="125" started-at="2015-09-10T11:22:41Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="cancelSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="cancelSalesOrder" duration-ms="63" started-at="2015-09-22T09:44:36Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- cancelSalesOrder -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void mystore.SalesOrderServiceTest.getCatalogService()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="getCatalogService()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="getCatalogService" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getCatalogService -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -97,33 +108,11 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.cancelSalesOrder()]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testAddLineItem()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="testAddLineItem" duration-ms="72" started-at="2015-09-10T11:22:41Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="testAddLineItem()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="testAddLineItem" duration-ms="47" started-at="2015-09-22T09:44:36Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAddLineItem -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.testAddLineItem() throws java.lang.Exception]]>
-              </value>
-            </param>
-          </params>
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -134,22 +123,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[public void mystore.SalesOrderServiceTest.testRetrieveSalesOrder()]]>
+                <![CDATA[public void mystore.SalesOrderServiceTest.testAddLineItem() throws java.lang.Exception]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testRetrieveSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="testRetrieveSalesOrder" duration-ms="16" started-at="2015-09-10T11:22:41Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="testRetrieveSalesOrder()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="testRetrieveSalesOrder" duration-ms="15" started-at="2015-09-22T09:44:36Z" depends-on-methods="mystore.SalesOrderServiceTest.testCreateSalesOrder" finished-at="2015-09-22T09:44:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testRetrieveSalesOrder -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -160,7 +149,22 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void mystore.SalesOrderServiceTest.testRetrieveSalesOrder()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextBeforeTestMethod -->
+        <test-method status="PASS" signature="testRemoveLineItem()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="testRemoveLineItem" duration-ms="110" started-at="2015-09-22T09:44:36Z" depends-on-methods="mystore.SalesOrderServiceTest.testAddLineItem" finished-at="2015-09-22T09:44:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testRemoveLineItem -->
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -171,7 +175,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
-        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextBeforeTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextBeforeTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -182,15 +186,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextBeforeTestMethod -->
-        <test-method status="PASS" signature="testRemoveLineItem()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="testRemoveLineItem" duration-ms="94" started-at="2015-09-10T11:22:41Z" depends-on-methods="mystore.SalesOrderServiceTest.testAddLineItem" finished-at="2015-09-10T11:22:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testRemoveLineItem -->
-        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- springTestContextAfterTestClass -->
-        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@6ec8211c]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-10T11:22:41Z" finished-at="2015-09-10T11:22:41Z">
+        <test-method status="PASS" signature="springTestContextAfterTestMethod(java.lang.reflect.Method)[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestMethod" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
           <params>
             <param index="0">
               <value>
@@ -201,6 +197,10 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- springTestContextAfterTestMethod -->
+        <test-method status="PASS" signature="springTestContextAfterTestClass()[pri:0, instance:mystore.SalesOrderServiceTest@544a2ea6]" name="springTestContextAfterTestClass" is-config="true" duration-ms="0" started-at="2015-09-22T09:44:36Z" finished-at="2015-09-22T09:44:36Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- springTestContextAfterTestClass -->
       </class> <!-- mystore.SalesOrderServiceTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

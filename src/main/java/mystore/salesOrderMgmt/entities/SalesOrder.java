@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -36,12 +37,15 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  * The persistent class for the sales_order database table.
  * 
  */
-@Entity
+@Entity()
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Table(name="sales_order")
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="salesOrderUid")
-@NamedQuery(name="SalesOrder.findAll", query="SELECT s FROM SalesOrder s")
+@NamedQueries({
+	@NamedQuery(name="SalesOrder.findAll", query="from SalesOrder"),
+	@NamedQuery(name="SalesOrder.byId", query="from SalesOrder where salesOrderUid = :salesOrderUid")
+})
 public class SalesOrder implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -73,18 +77,23 @@ public class SalesOrder implements Serializable {
 	private String promoCode;
 	private Timestamp lastUpdatedTime;
 	
-	//Calculated and persisted for data retrieval performance
-	private BigDecimal subTotal = BigDecimal.ZERO;
-	private BigDecimal discount = BigDecimal.ZERO;
-	private BigDecimal salesTax = BigDecimal.ZERO;
-	private BigDecimal shipping = BigDecimal.ZERO;
-	private BigDecimal total = BigDecimal.ZERO;
+	//Calculated and persisted for auditing and data retrieval performance
+	private BigDecimal subTotal;
+	private BigDecimal discount;
+	private BigDecimal salesTax;
+	private BigDecimal shipping;
+	private BigDecimal total;
 
-	private UserAccount userAccount;
-	private List<SalesOrderLine> lineItems;
+	private UserAccount userAccount; // Optional
+	private List<SalesOrderLine> lineItems;  // Required
 
+	// Initialization block
+	// userAccount is lazy instantiated
+	{ 
+		lineItems = new ArrayList<SalesOrderLine>();	
+	}
+	
 	public SalesOrder() {
-		lineItems = new ArrayList<SalesOrderLine>();
 	}
 	
 	@Override

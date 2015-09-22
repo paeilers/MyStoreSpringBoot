@@ -17,6 +17,8 @@ import mystore.salesOrderMgmt.entities.ProductCategoryItem;
 
 import org.springframework.stereotype.Service;
 
+import scala.annotation.meta.getter;
+
 @Service("catalogService")
 public class CatalogService implements Serializable {
 
@@ -36,15 +38,15 @@ public class CatalogService implements Serializable {
 	}
 	
 	public Catalog retrieveCatalog(Integer catalogUid) {
-		Query catalogQuery = emgr.createQuery("Select c from Catalog c where c.catalogUid = :catalogUid");
-		catalogQuery.setParameter("catalogUid", catalogUid);
+		Query catalogQuery = emgr.createNamedQuery("Catalog.byId");
+		catalogQuery.setParameter(0, catalogUid);
 		Catalog catalog = null;
 		catalog = (Catalog) catalogQuery.getSingleResult();
 		return catalog;
 	}		
 	
 	public Catalog retrieveCurrentCatalog() {
-		Query catalogQuery = emgr.createQuery("Select c from Catalog c where c.validFrom <= CURRENT_DATE and (c.validThrough IS NULL or c.validThrough >= CURRENT_DATE)");
+		Query catalogQuery = emgr.createNamedQuery("Catalog.current");
 		Catalog catalog = (Catalog) catalogQuery.getSingleResult();
 		return catalog;
 	}		
@@ -56,13 +58,14 @@ public class CatalogService implements Serializable {
 	}
 	
 	public ProductCategory retrieveProductCategory(Integer productCategoryUid) {
-		Query productCatalogQuery = emgr.createQuery("Select pc from ProductCategory pc where pc.productCategoryUid = :productCategoryUid");
+		Query productCatalogQuery = emgr.createNamedQuery("ProductCategory.byId");
+		productCatalogQuery.setParameter(0, productCategoryUid);
 		ProductCategory productCategory = (ProductCategory) productCatalogQuery.getSingleResult();
 		return productCategory;
 	}
 
 	public List<ProductCategory> retrieveCatalogProductCategories(Integer catalogUid) {
-		Query query = emgr.createQuery("Select pc from ProductCategory pc, ProductCategoryItem pci, Item i, CatalogItem ci "
+		Query query = emgr.createNativeQuery("Select pc from ProductCategory pc, ProductCategoryItem pci, Item i, CatalogItem ci "
 										+ "where pc.productCategoryUid = pci.productCategoryUid "
 										+ "and pci.itemUid = i.itemUid "
 										+ "and i.itemUid = ci.itemUid "
@@ -73,7 +76,7 @@ public class CatalogService implements Serializable {
 	}
 	
 	public List<ProductCategory> retrieveAllProductCategories() {
-		Query query = emgr.createQuery("Select pc from ProductCategory pc");
+		Query query = emgr.createNamedQuery("ProductCategory.findAll");
 		List<ProductCategory> productCategories = (List<ProductCategory>) query.getResultList();
 		return productCategories;
 	}
@@ -85,8 +88,8 @@ public class CatalogService implements Serializable {
 	}
 	
 	public Item retrieveItem(int itemUid) {
-		Query itemQuery = emgr.createQuery("Select i from Item i where i.itemUid = :itemyUid");
-		itemQuery.setParameter("itemUid", itemUid);
+		Query itemQuery = emgr.createNamedQuery("Item.byId");
+		itemQuery.setParameter(0, itemUid);
 		Item item = (Item) itemQuery.getSingleResult();
 		return item;
 		
@@ -99,16 +102,16 @@ public class CatalogService implements Serializable {
 	}
 	
 	public CatalogItem retrieveCatalogItem(Integer catalogItemUid) {
-		Query catalogItemQuery = emgr.createQuery("Select ci from CatalogItem ci where ci.catalogItemUid = :catalogItemUid");
-		catalogItemQuery.setParameter("catalogItemUid", catalogItemUid);
-		CatalogItem catalogItem = (CatalogItem) catalogItemQuery.getSingleResult();
+		Query query = emgr.createNamedQuery("CatalogItem.byId");
+		query.setParameter(1, catalogItemUid);
+		CatalogItem catalogItem = (CatalogItem) query.getSingleResult();
 		return catalogItem;
 	}	
 	
 	public List<CatalogItem> retrieveAllCatalogItems(Catalog catalog) {
-		Query catalogItemQuery = emgr.createQuery("Select ci from CatalogItem c where c.catalogItemUid = :catalogUid");
-		catalogItemQuery.setParameter("catalogUid", catalog.getCatalogUid());
-		List<CatalogItem> catalogItems = (List<CatalogItem>) catalogItemQuery.getResultList(); 
+		Query query = emgr.createNamedQuery("CatalogItem.byCatalog");
+		query.setParameter(0, catalog.getCatalogUid());
+		List<CatalogItem> catalogItems = (List<CatalogItem>) query.getResultList(); 
 		return catalogItems;
 	}		
 	
@@ -119,22 +122,22 @@ public class CatalogService implements Serializable {
 	}
 	
 	public ProductCategoryItem retrieveProductCategoryItem(Integer productCategoryItemUid) {
-		Query query = emgr.createQuery("Select pci from ProductCategoryItem pci where pci.productCategoryItemUid = :productCategoryItemUid");
-		query.setParameter("productCategoryItemUid", productCategoryItemUid);
+		Query query = emgr.createNamedQuery("ProductCategoryItem.byId");
+		query.setParameter(0, productCategoryItemUid);
 		ProductCategoryItem productCategoryItem = (ProductCategoryItem) query.getSingleResult();
 		return productCategoryItem;
 		
 	}
 	
 	public List<ProductCategoryItem> retrieveAllProductCategoryItems(Integer productCategoryUid) {
-		Query query = emgr.createQuery("Select pci from ProductCategoryItem pci where pci.productCategoryUid = :productCategoryUid");
-		query.setParameter("productCategoryUid", productCategoryUid);
+		Query query = emgr.createNamedQuery("ProductCategoryItem.byProductCategory");
+		query.setParameter(0, productCategoryUid);
 		List<ProductCategoryItem> productCategoryItems = (List<ProductCategoryItem>) query.getResultList(); 
 		return productCategoryItems;
 	}	
 
 	public List<ProductCategoryItem> retrieveAllProductCategoryItems() {
-		Query query = emgr.createQuery("Select pci from ProductCategoryItem pci");
+		Query query = emgr.createNamedQuery("ProductCategoryItem.findAll");
 		List<ProductCategoryItem> productCategoryItems = (List<ProductCategoryItem>) query.getResultList(); 
 		return productCategoryItems;
 	}	
@@ -144,10 +147,11 @@ public class CatalogService implements Serializable {
 		catalog = emgr.find(Catalog.class, (Integer) catalog.getCatalogUid(), LockModeType.PESSIMISTIC_WRITE);
 		item = emgr.find(Item.class, (Integer) item.getItemUid(), LockModeType.PESSIMISTIC_WRITE);
 		CatalogItem catalogItem = new CatalogItem(item, catalog);
+		catalogItem.setCatalog(catalog);
+		catalogItem.setItem(item);
 		emgr.persist(catalogItem);
 		catalog.getCatalogItems().add(catalogItem);
 		item.getCatalogItems().add(catalogItem);
-		emgr.flush();
 		return catalog;
 	}
 
@@ -155,8 +159,9 @@ public class CatalogService implements Serializable {
 		catalog = emgr.find(Catalog.class, (Integer) catalog.getCatalogUid(), LockModeType.PESSIMISTIC_WRITE);
 		catalogItem = emgr.find(CatalogItem.class, (Integer) catalogItem.getCatalogItemUid(), LockModeType.PESSIMISTIC_WRITE);
 		catalog.getCatalogItems().remove(catalogItem);	
-		emgr.merge(catalog);
-		emgr.flush();
+		emgr.remove(catalogItem);
+//		emgr.merge(catalog);
+//		emgr.flush();
 		return catalog;
 	}
 

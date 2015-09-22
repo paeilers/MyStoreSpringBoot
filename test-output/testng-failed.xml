@@ -6,13 +6,10 @@
       <class name="mystore.SalesOrderServiceTest">
         <methods>
           <include name="springTestContextBeforeTestClass"/>
-          <include name="testAddLineItem"/>
-          <include name="cancelSalesOrder"/>
           <include name="springTestContextPrepareTestInstance"/>
           <include name="springTestContextAfterTestClass"/>
           <include name="testCreateSalesOrder"/>
           <include name="springTestContextBeforeTestMethod"/>
-          <include name="testRemoveLineItem"/>
           <include name="springTestContextAfterTestMethod"/>
           <include name="testRetrieveSalesOrder"/>
         </methods>

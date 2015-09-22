@@ -93,6 +93,7 @@ public class SalesOrderServiceTest extends AbstractTestNGSpringContextTests {
 		// Associate the first line item with the new sales order
 		CatalogItem catItem = catalogService.retrieveCatalogItem(2);
 		salesOrderLine = new SalesOrderLine(salesOrder, catItem, 20);
+		salesOrderLine = new SalesOrderLine(salesOrder, catItem, 20);		
 		salesOrder.getLineItems().add(salesOrderLine);				
 		salesOrderService.createSalesOrder(salesOrder);			
 				

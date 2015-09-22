@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -30,7 +32,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQuery(name="Catalog.findAll", query="SELECT c FROM Catalog c")
+@NamedQueries({
+	@NamedQuery(name="Catalog.findAll", query="from Catalog"),
+	@NamedQuery(name="Catalog.byId", query="from Catalog where catalogUid = ?"),
+	@NamedQuery(name="Catalog.current", query="from Catalog where validFrom <= CURRENT_DATE and (validThrough IS NULL or validThrough >= CURRENT_DATE)")	
+})
 public class Catalog implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -38,9 +44,15 @@ public class Catalog implements Serializable {
 	private Date validFrom;
 	private Date validThrough;
 	private List<CatalogItem> catalogItems;
+	private List<Item> items;
 
-	public Catalog() {
+	// Initializer block
+	{
 		catalogItems = new ArrayList<CatalogItem>();
+		items = new ArrayList<Item>();		
+	}
+	
+	public Catalog() {
 	}
 
 	@Id
@@ -74,6 +86,7 @@ public class Catalog implements Serializable {
 		this.validThrough = validThrough;
 	}
 
+
 	@OneToMany(targetEntity=CatalogItem.class, mappedBy="catalog", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JsonManagedReference
 	public List<CatalogItem> getCatalogItems() {
@@ -83,6 +96,5 @@ public class Catalog implements Serializable {
 	public void setCatalogItems(List<CatalogItem> catalogItems) {
 		this.catalogItems = catalogItems;
 	}
-	
 
 }
