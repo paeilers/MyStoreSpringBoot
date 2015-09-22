@@ -13,6 +13,9 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mystore.salesOrderMgmt.controls.api.DiscountCalculator;
+import mystore.salesOrderMgmt.controls.api.ShippingCalculator;
+import mystore.salesOrderMgmt.controls.api.TaxCalculator;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
 import mystore.salesOrderMgmt.entities.SalesOrderLine;

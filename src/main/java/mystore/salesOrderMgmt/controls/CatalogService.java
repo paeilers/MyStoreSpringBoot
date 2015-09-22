@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
@@ -16,8 +17,6 @@ import mystore.salesOrderMgmt.entities.ProductCategory;
 import mystore.salesOrderMgmt.entities.ProductCategoryItem;
 
 import org.springframework.stereotype.Service;
-
-import scala.annotation.meta.getter;
 
 @Service("catalogService")
 public class CatalogService implements Serializable {
@@ -40,6 +39,7 @@ public class CatalogService implements Serializable {
 	public Catalog retrieveCatalog(Integer catalogUid) {
 		Query catalogQuery = emgr.createNamedQuery("Catalog.byId");
 		catalogQuery.setParameter(0, catalogUid);
+		catalogQuery.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
 		Catalog catalog = null;
 		catalog = (Catalog) catalogQuery.getSingleResult();
 		return catalog;
@@ -47,6 +47,7 @@ public class CatalogService implements Serializable {
 	
 	public Catalog retrieveCurrentCatalog() {
 		Query catalogQuery = emgr.createNamedQuery("Catalog.current");
+		catalogQuery.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
 		Catalog catalog = (Catalog) catalogQuery.getSingleResult();
 		return catalog;
 	}		
@@ -60,6 +61,7 @@ public class CatalogService implements Serializable {
 	public ProductCategory retrieveProductCategory(Integer productCategoryUid) {
 		Query productCatalogQuery = emgr.createNamedQuery("ProductCategory.byId");
 		productCatalogQuery.setParameter(0, productCategoryUid);
+		productCatalogQuery.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
 		ProductCategory productCategory = (ProductCategory) productCatalogQuery.getSingleResult();
 		return productCategory;
 	}
@@ -71,12 +73,14 @@ public class CatalogService implements Serializable {
 										+ "and i.itemUid = ci.itemUid "
 										+ "and ci.catalogUid = :catalogUid");
 		query.setParameter("catalogUid", catalogUid);
+		query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
 		List<ProductCategory> productCategories = (List<ProductCategory>) query.getResultList();
 		return productCategories;
 	}
 	
 	public List<ProductCategory> retrieveAllProductCategories() {
 		Query query = emgr.createNamedQuery("ProductCategory.findAll");
+		query.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
 		List<ProductCategory> productCategories = (List<ProductCategory>) query.getResultList();
 		return productCategories;
 	}

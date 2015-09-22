@@ -7,10 +7,10 @@ import java.util.List;
 
 import mystore.MystoreProperties;
 import mystore.salesOrderMgmt.controls.CatalogService;
-import mystore.salesOrderMgmt.controls.DiscountCalculator;
 import mystore.salesOrderMgmt.controls.SalesOrderService;
-import mystore.salesOrderMgmt.controls.ShippingCalculator;
-import mystore.salesOrderMgmt.controls.TaxCalculator;
+import mystore.salesOrderMgmt.controls.api.DiscountCalculator;
+import mystore.salesOrderMgmt.controls.api.ShippingCalculator;
+import mystore.salesOrderMgmt.controls.api.TaxCalculator;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
 import mystore.salesOrderMgmt.entities.SalesOrderLine;

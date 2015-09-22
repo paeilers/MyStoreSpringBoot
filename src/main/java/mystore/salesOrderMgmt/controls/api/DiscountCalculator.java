@@ -1,4 +1,4 @@
-package mystore.salesOrderMgmt.controls;
+package mystore.salesOrderMgmt.controls.api;
 
 import java.math.BigDecimal;
 
