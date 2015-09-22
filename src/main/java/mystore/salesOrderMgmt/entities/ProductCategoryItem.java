@@ -2,7 +2,6 @@ package mystore.salesOrderMgmt.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,7 +28,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Table(name="product_category_item")
-@NamedQuery(name="ProductCategoryItem.findAll", query="SELECT p FROM ProductCategoryItem p")
+@NamedQueries({
+	@NamedQuery(name="ProductCategoryItem.findAll", query="from ProductCategoryItem p"),
+	@NamedQuery(name="ProductCategoryItem.byId", query="from ProductCategoryItem where productCategoryItemUid = ?"),
+	@NamedQuery(name="ProductCategoryItem.byProductCategory", query="from ProductCategoryItem where productCategoryUid = ?")
+})
 public class ProductCategoryItem implements Serializable {
 	
 	

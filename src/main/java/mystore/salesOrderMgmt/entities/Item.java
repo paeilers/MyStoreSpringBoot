@@ -11,7 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,7 +28,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@NamedQuery(name="Item.findAll", query="SELECT i FROM Item i")
+@NamedQueries({
+	@NamedQuery(name="Item.findAll", query="from Item"),
+	@NamedQuery(name="Item.byId", query="from Item where itemUid = ?")
+})
 public class Item implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -103,21 +106,5 @@ public class Item implements Serializable {
 	public void setProductCategoryItems(List<ProductCategoryItem> productCategoryItems) {
 		this.productCategoryItems = productCategoryItems;
 	}
-
-	/**
-	 * @return the catalogs
-	 */
-	@ManyToMany(mappedBy="items", targetEntity=Catalog.class, fetch=FetchType.LAZY)
-	public List<Catalog> getCatalogs() {
-		return catalogs;
-	}
-
-	/**
-	 * @param catalogs the catalogs to set
-	 */
-	public void setCatalogs(List<Catalog> catalogs) {
-		this.catalogs = catalogs;
-	}
-
 	
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -42,7 +42,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Table(name="sales_order")
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="salesOrderUid")
-@NamedQuery(name="SalesOrder.findAll", query="SELECT s FROM SalesOrder s")
+@NamedQueries({
+	@NamedQuery(name="SalesOrder.findAll", query="from SalesOrder"),
+	@NamedQuery(name="SalesOrder.byId", query="from SalesOrder where salesOrderUid = :salesOrderUid")
+})
 public class SalesOrder implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

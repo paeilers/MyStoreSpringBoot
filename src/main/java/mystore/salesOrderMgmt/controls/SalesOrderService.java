@@ -11,13 +11,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
 import mystore.salesOrderMgmt.entities.SalesOrderLine;
 
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +30,6 @@ public class SalesOrderService implements Serializable {
 	@PersistenceContext
 	EntityManager emgr;
 	
-	Session hibernateSession;
-		
 	// Inject other EJB services here as required to support complex transactions
 	@Autowired
 	TaxCalculator taxCalculator;
@@ -54,7 +51,8 @@ public class SalesOrderService implements Serializable {
 		salesOrder.setSalesOrderDate(new Date());
 		
 		// Go through the line items and create a new array of line items by assigning the catalogItem directly
-		// This is required else the many-to-one relationship between SalesOrderLine and CatalogItem does not get carried through
+		// This is required else the many-to-one relationship between SalesOrderLine and CatalogItem does not get 
+		// carried through to the database
 		List<SalesOrderLine> salesOrderLineItems = salesOrder.getLineItems();
 		List<SalesOrderLine> newLineItems = new ArrayList<SalesOrderLine>();
 		for (int i = 0; i < salesOrderLineItems.size(); i++) {
@@ -93,17 +91,12 @@ public class SalesOrderService implements Serializable {
 
 	@Transactional
 	public SalesOrder retrieveSalesOrder(Integer orderUid) {
-		// JPA compliant retrieval replaced by Hibernate HQL
-//		SalesOrder salesOrder = (SalesOrder) emgr.createQuery("Select so from SalesOrder so where so.salesOrderUid = :orderUid")
-//												.setParameter("orderUid", orderUid)
-//												.getSingleResult();
-
-		// Want to use HQL so need a Hibernate session
-		this.hibernateSession = emgr.unwrap(Session.class);
-		// Do some things requiring either the Hibernate session or both the session and the JPA Entity Manager
-		Query query = hibernateSession.createQuery("from SalesOrder where salesOrderUid = :salesOrderUid");
+		
+		System.out.println("Top of SalesOrderService.retrieveSalesOrder with orderUid of: " + orderUid);
+		
+		Query query = emgr.createNamedQuery("SalesOrder.byId");
 		query.setParameter("salesOrderUid", orderUid);
-		SalesOrder salesOrder = (SalesOrder) query.uniqueResult();
+		SalesOrder salesOrder = (SalesOrder) query.getSingleResult();
 
 		return salesOrder;
 	}	

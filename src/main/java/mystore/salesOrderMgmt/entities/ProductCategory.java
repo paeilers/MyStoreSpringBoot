@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -34,7 +35,12 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Table(name="product_category")
-@NamedQuery(name="ProductCategory.findAll", query="SELECT p FROM ProductCategory p")
+@NamedQueries({
+	@NamedQuery(name="ProductCategory.findAll", 
+			query="from ProductCategory"),
+	@NamedQuery(name="ProductCategory.byId", 
+			query="from ProductCategory where productCategoryUid = ?")
+})
 public class ProductCategory implements Serializable {
 
 	private static final long serialVersionUID = 1L;
