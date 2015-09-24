@@ -1,10 +1,12 @@
 /**
  * 
  */
-package mystore;
+package mystore.controls;
 
 import static org.junit.Assert.assertNotNull;
-import mystore.salesOrderMgmt.controls.CatalogService;
+import mystore.MystoreApplication;
+import mystore.salesOrderMgmt.controls.api.CatalogService;
+
 import mystore.salesOrderMgmt.entities.Catalog;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 

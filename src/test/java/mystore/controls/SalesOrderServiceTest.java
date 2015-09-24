@@ -1,7 +1,7 @@
 /**
  * 
  */
-package mystore;
+package mystore.controls;
 
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -12,8 +12,9 @@ import static org.testng.AssertJUnit.fail;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import mystore.salesOrderMgmt.controls.CatalogService;
-import mystore.salesOrderMgmt.controls.SalesOrderService;
+import mystore.MystoreApplication;
+import mystore.salesOrderMgmt.controls.api.CatalogService;
+import mystore.salesOrderMgmt.controls.api.SalesOrderService;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
 import mystore.salesOrderMgmt.entities.SalesOrderLine;

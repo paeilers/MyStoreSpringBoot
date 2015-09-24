@@ -2,18 +2,13 @@ package mystore.salesOrderMgmt.boundaries;
 
 /* Author: PEilers */
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mystore.MystoreProperties;
-import mystore.salesOrderMgmt.controls.CatalogService;
-import mystore.salesOrderMgmt.controls.SalesOrderService;
+import mystore.config.MystoreProperties;
+import mystore.salesOrderMgmt.controls.api.CatalogService;
 import mystore.salesOrderMgmt.controls.api.DiscountCalculator;
+import mystore.salesOrderMgmt.controls.api.SalesOrderService;
 import mystore.salesOrderMgmt.controls.api.ShippingCalculator;
 import mystore.salesOrderMgmt.controls.api.TaxCalculator;
-import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.SalesOrder;
-import mystore.salesOrderMgmt.entities.SalesOrderLine;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;

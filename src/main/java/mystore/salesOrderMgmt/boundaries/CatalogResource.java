@@ -2,8 +2,8 @@ package mystore.salesOrderMgmt.boundaries;
 
 import java.util.List;
 
-import mystore.MystoreProperties;
-import mystore.salesOrderMgmt.controls.CatalogService;
+import mystore.config.MystoreProperties;
+import mystore.salesOrderMgmt.controls.api.CatalogService;
 import mystore.salesOrderMgmt.entities.Catalog;
 import mystore.salesOrderMgmt.entities.ProductCategory;
 import mystore.salesOrderMgmt.entities.ProductCategoryItem;

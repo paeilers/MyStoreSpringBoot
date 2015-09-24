@@ -1,4 +1,4 @@
-package mystore.salesOrderMgmt.controls;
+package mystore.salesOrderMgmt.controls.impl;
 
 //import model.SalesOrder;
 /* This boundary service should expose course grained methods to the client */
@@ -13,7 +13,9 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mystore.salesOrderMgmt.controls.api.CatalogService;
 import mystore.salesOrderMgmt.controls.api.DiscountCalculator;
+import mystore.salesOrderMgmt.controls.api.SalesOrderService;
 import mystore.salesOrderMgmt.controls.api.ShippingCalculator;
 import mystore.salesOrderMgmt.controls.api.TaxCalculator;
 import mystore.salesOrderMgmt.entities.CatalogItem;
@@ -26,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /* This boundary service should expose course grained methods to the client */
 @Service
-public class SalesOrderService implements Serializable {
+public class SalesOrderServiceImpl implements Serializable, SalesOrderService {
 
 	private static final long serialVersionUID = -3072083708013257602L;
 
@@ -134,7 +136,7 @@ public class SalesOrderService implements Serializable {
 		return salesOrder;
 	}
 		
-	private String generateOrderNumber(SalesOrder salesOrder) {
+	public String generateOrderNumber(SalesOrder salesOrder) {
 		// Simplified for prototyping purposes
 		return String.valueOf(new Date().getTime());
 	}

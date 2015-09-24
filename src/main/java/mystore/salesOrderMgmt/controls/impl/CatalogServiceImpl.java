@@ -1,4 +1,4 @@
-package mystore.salesOrderMgmt.controls;
+package mystore.salesOrderMgmt.controls.impl;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +10,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import mystore.salesOrderMgmt.controls.api.CatalogService;
 import mystore.salesOrderMgmt.entities.Catalog;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.Item;
@@ -19,7 +20,7 @@ import mystore.salesOrderMgmt.entities.ProductCategoryItem;
 import org.springframework.stereotype.Service;
 
 @Service("catalogService")
-public class CatalogService implements Serializable {
+public class CatalogServiceImpl implements Serializable, CatalogService {
 
 	/**
 	 * 
