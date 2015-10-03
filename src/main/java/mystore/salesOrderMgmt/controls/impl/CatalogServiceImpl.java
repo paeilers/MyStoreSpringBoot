@@ -10,14 +10,14 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Service;
+
 import mystore.salesOrderMgmt.controls.api.CatalogService;
 import mystore.salesOrderMgmt.entities.Catalog;
 import mystore.salesOrderMgmt.entities.CatalogItem;
 import mystore.salesOrderMgmt.entities.Item;
 import mystore.salesOrderMgmt.entities.ProductCategory;
 import mystore.salesOrderMgmt.entities.ProductCategoryItem;
-
-import org.springframework.stereotype.Service;
 
 @Service("catalogService")
 public class CatalogServiceImpl implements Serializable, CatalogService {
@@ -49,7 +49,7 @@ public class CatalogServiceImpl implements Serializable, CatalogService {
 	public Catalog retrieveCurrentCatalog() {
 		Query catalogQuery = emgr.createNamedQuery("Catalog.current");
 		catalogQuery.setHint("javax.persistence.cache.retrieveMode", CacheRetrieveMode.USE);
-		Catalog catalog = (Catalog) catalogQuery.getSingleResult();
+		Catalog catalog = (Catalog) catalogQuery.getSingleResult();			
 		return catalog;
 	}		
 	

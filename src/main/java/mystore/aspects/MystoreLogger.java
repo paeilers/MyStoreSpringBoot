@@ -1,5 +1,5 @@
 /**
- * 
+ * Cross-cutting aspect to log entry and exit of all Service methods.
  */
 package mystore.aspects;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Patty Eilers
- * Aspect class used to implement logging on all services
+ * 
  */
 @Aspect	
 @Component
