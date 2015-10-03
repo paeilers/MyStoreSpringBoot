@@ -1,2 +1,2 @@
 # MyStoreSpringBoot
-Web store prototype using Spring Boot
+Web store back-end prototype using Spring Boot
